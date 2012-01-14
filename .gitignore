@@ -1,0 +1,12 @@
+
+# files and folders to ignore
+*.cachefile
+*.db
+*.suo
+*.user
+*.xgs
+*.xsb
+*.xwb
+bin
+obj
+NePlus/NePlusContent/Audio/buildlog.txt
