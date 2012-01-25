@@ -16,14 +16,12 @@ namespace Mystery.Components.GameComponents
             : base(engine)
         {
             sprite = engine.Content.Load<Texture2D>(spriteFilepath);
-            spriteOrigin = new Vector2(sprite.Width / 2, sprite.Height / 2);
+            spriteOrigin = new Vector2(0, 0);
 
             Angle = 0.0f;
             Position = new Vector2();
             SpriteEffect = SpriteEffects.None;
             Visible = true;
-
-            engine.AddComponent(this);
         }
 
         public override void Update(GameTime gameTime)

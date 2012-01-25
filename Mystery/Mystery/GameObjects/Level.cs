@@ -19,7 +19,6 @@ using Mystery.Components.EngineComponents;
 using Mystery.Components.GraphicsComponents;
 using Mystery.Components.PhysicsComponents;
 using Mystery.GameObjects;
-using Mystery.GameObjects.Enemies;
 using Mystery.GameObjects.LightObjects;
 using Mystery.ScreenManagement;
 using Mystery.ScreenManagement.Screens;
@@ -28,12 +27,14 @@ namespace Mystery.GameObjects
 {
     public class Level : Component
     {
-        public List<Enemy> Enemies { get; private set; }
         public List<EffectLight> Lights { get; private set; }
 
         private string mapFilePath;
         private Map map;
         private List<ParticleEffectComponent> levelParticleEffects;
+
+        public int TileWidth { get { return map.TileWidth; } }
+        public int TileHeight { get { return map.TileHeight; } }
 
         /// <summary>
         /// Loads and manages maps.
@@ -44,7 +45,6 @@ namespace Mystery.GameObjects
             : base(engine)
         {
             mapFilePath = mapPath;
-            Enemies = new List<Enemy>();
             Lights = new List<EffectLight>();
             levelParticleEffects = new List<ParticleEffectComponent>();
 
@@ -75,56 +75,49 @@ namespace Mystery.GameObjects
             }
 
             // loop through the collision objects and create physics fixtures for them
-            MapObjectLayer collisionLayer = map.GetLayer("CollisionObjects") as MapObjectLayer;            
-            foreach (MapObject collisionObject in collisionLayer.Objects)
-            {
-                // I don't fully understand why using Vector2.Zero works here. It must have something to do with the Bounds already containing the position information
-                CreateCollisionRectangle(collisionObject.Bounds, Engine.Physics.PositionToPhysicsWorld(Vector2.Zero));
+            //MapObjectLayer collisionLayer = map.GetLayer("CollisionObjects") as MapObjectLayer;
+            //foreach (MapObject collisionObject in collisionLayer.Objects)
+            //{
+            //    // I don't fully understand why using Vector2.Zero works here. It must have something to do with the Bounds already containing the position information
+            //    CreateCollisionRectangle(collisionObject.Bounds, Engine.Physics.PositionToPhysicsWorld(Vector2.Zero));
 
-                // create the shadow hull for the platform
-                CreateRectangleShadowHull(new Vector2(collisionObject.Bounds.Center.X, collisionObject.Bounds.Center.Y), collisionObject.Bounds);
-            }
+            //    // create the shadow hull for the platform
+            //    CreateRectangleShadowHull(new Vector2(collisionObject.Bounds.Center.X, collisionObject.Bounds.Center.Y), collisionObject.Bounds);
+            //}
 
-            // loop through the collision tiles and create physics fixtures for them
-            TileLayer tileLayer = map.GetLayer("CollisionTiles") as TileLayer;
-            if (Global.Configuration.GetBooleanConfig("Debug", "ShowDebugCollisionTiles"))
-            {
-                tileLayer.Opacity = 100;
-            }
-            else
-            {
-                tileLayer.Opacity = 0;
-            }
-            for (int y = 0; y < tileLayer.Height; ++y)
-            {
-               for (int x = 0; x < tileLayer.Width; ++x)
-               {
-                    if (tileLayer.Tiles[x, y] != null)
-                    {
-                        // create the physics object for the tile
-                        CreateCollisionRectangle(tileLayer.Tiles[x, y].Source, Engine.Physics.PositionToPhysicsWorld(new Vector2(x * map.TileWidth, y * map.TileHeight)));
+            //// loop through the collision tiles and create physics fixtures for them
+            //TileLayer tileLayer = map.GetLayer("CollisionTiles") as TileLayer;
+            //if (Global.Configuration.GetBooleanConfig("Debug", "ShowDebugCollisionTiles"))
+            //{
+            //    tileLayer.Opacity = 100;
+            //}
+            //else
+            //{
+            //    tileLayer.Opacity = 0;
+            //}
+            //for (int y = 0; y < tileLayer.Height; ++y)
+            //{
+            //   for (int x = 0; x < tileLayer.Width; ++x)
+            //   {
+            //        if (tileLayer.Tiles[x, y] != null)
+            //        {
+            //            // create the physics object for the tile
+            //            CreateCollisionRectangle(tileLayer.Tiles[x, y].Source, Engine.Physics.PositionToPhysicsWorld(new Vector2(x * map.TileWidth, y * map.TileHeight)));
 
-                        // create the shadow for the tile new Vector2(x * map.TileWidth, y * map.TileHeight)
-                        CreateRectangleShadowHull(new Vector2(x * map.TileWidth + tileLayer.Tiles[x, y].Source.Width / 2,
-                                                              y * map.TileHeight + tileLayer.Tiles[x, y].Source.Height / 2),
-                                                  tileLayer.Tiles[x, y].Source);
-                    }
-                }
-            }
+            //            // create the shadow for the tile new Vector2(x * map.TileWidth, y * map.TileHeight)
+            //            CreateRectangleShadowHull(new Vector2(x * map.TileWidth + tileLayer.Tiles[x, y].Source.Width / 2,
+            //                                                  y * map.TileHeight + tileLayer.Tiles[x, y].Source.Height / 2),
+            //                                      tileLayer.Tiles[x, y].Source);
+            //        }
+            //    }
+            //}
 
-            // loop through the light objects and create lights in the game world for them
-            MapObjectLayer lightLayer = map.GetLayer("LightObjects") as MapObjectLayer;
-            foreach (MapObject lightObject in lightLayer.Objects)
-            {
-                CreateLight(lightObject);
-            }
-
-            // create enemies
-            MapObjectLayer enemyLayer = map.GetLayer("EnemyObjects") as MapObjectLayer;
-            foreach (MapObject enemyObject in enemyLayer.Objects)
-            {
-                CreateEnemy(enemyObject);
-            }
+            //// loop through the light objects and create lights in the game world for them
+            //MapObjectLayer lightLayer = map.GetLayer("LightObjects") as MapObjectLayer;
+            //foreach (MapObject lightObject in lightLayer.Objects)
+            //{
+            //    CreateLight(lightObject);
+            //}
         }
 
         public override void Update(GameTime gameTime)
@@ -190,6 +183,29 @@ namespace Mystery.GameObjects
             Engine.SpriteBatch.End();
         }
 
+        public bool CheckMove(int x, int y)
+        {
+            bool valid = false;
+
+            // check the boundary tiles
+            TileLayer boundaryLayer = map.GetLayer("Boundaries") as TileLayer;
+            if ((x > 0 && x < boundaryLayer.Tiles.Width) && (y > 0 && y < boundaryLayer.Tiles.Height))
+            {
+                valid = boundaryLayer.Tiles[x, y] == null;
+            }
+
+            // check npcs...
+
+            return valid;
+        }
+
+        public Vector2 GetTilePosition(int x, int y)
+        {
+            TileLayer backgroundLayer = map.GetLayer("Background") as TileLayer;
+            Rectangle tileRectangle = backgroundLayer.Tiles[x, y].Source;
+            return new Vector2(tileRectangle.Left, tileRectangle.Top);
+        }
+
         #region CreateFunctions
         public void CreateCollisionRectangle(Rectangle rectangle, Vector2 position)
         {
@@ -204,30 +220,6 @@ namespace Mystery.GameObjects
             fixture.Body.BodyType = BodyType.Static;
             fixture.Restitution = 0.0f;
             fixture.CollisionFilter.CollisionCategories = (Category)Global.CollisionCategories.Structure;
-        }
-
-        public void CreateEnemy(MapObject enemyObject)
-        {
-            Vector2 enemyPosition = new Vector2(enemyObject.Bounds.X, enemyObject.Bounds.Y);
-
-            switch (enemyObject.Type)
-            {
-                case "PlayerEnemy":
-                    PlayerEnemy pe = new PlayerEnemy(Engine, new Vector2(enemyObject.Bounds.X, enemyObject.Bounds.Y));
-                    Enemies.Add(pe);
-                    break;
-                case "RollingCircleEnemy":
-                    
-                    RollingCircleEnemy rce = new RollingCircleEnemy(Engine, enemyPosition);
-                    Enemies.Add(rce);
-                    break;
-                case "RotatingBoxEnemy":
-                    FlyingBoxEnemy rbe = new FlyingBoxEnemy(Engine, enemyPosition);
-                    Enemies.Add(rbe);
-                    break;
-                default:
-                    throw new Exception("Failed to instantiate enemy with type of " + enemyObject.Type + " in map " + mapFilePath);
-            }
         }
 
         public void CreateLight(MapObject lightObject)
@@ -342,35 +334,5 @@ namespace Mystery.GameObjects
             Engine.Lighting.Krypton.Hulls.Add(shadowHull);
         }
         #endregion
-
-        public Vector2 GetSpawnPoint() // TODO: override this function to get the appropriate spawn point based on where the player died
-        {
-            MapObjectLayer spawnPointLayer = map.GetLayer("SpawnPointObjects") as MapObjectLayer;
-
-            // find the spawn point closest to the player on the left
-            Vector2 position = new Vector2(700, 400);
-            foreach (MapObject spawnPoint in spawnPointLayer.Objects)
-            {
-                if (Engine.Player == null)
-                {
-                    if (spawnPoint.Name == "InitialSpawnPoint")
-                    {
-                        return new Vector2(spawnPoint.Bounds.X, spawnPoint.Bounds.Y);
-                    }
-                }
-                else
-                {
-                    if (spawnPoint.Bounds.X < Engine.Player.Position.X)
-                    {
-                        if (spawnPoint.Bounds.X > position.X)
-                        {
-                            position = new Vector2(spawnPoint.Bounds.X, spawnPoint.Bounds.Y);
-                        }
-                    }
-                }
-            }
-
-            return position;
-        }
     }
 }

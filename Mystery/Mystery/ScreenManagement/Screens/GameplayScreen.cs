@@ -11,6 +11,7 @@ using Krypton.Lights;
 
 using Mystery.Components.EngineComponents;
 using Mystery.GameObjects;
+using Mystery.GameObjects.TileBased;
 
 namespace Mystery.ScreenManagement.Screens
 {
@@ -39,7 +40,7 @@ namespace Mystery.ScreenManagement.Screens
         }
 
         /// <summary>
-        /// Load graphics content for the game.
+        /// Load content for the game.
         /// </summary>
         public override void LoadContent()
         {
@@ -52,8 +53,7 @@ namespace Mystery.ScreenManagement.Screens
 
             Engine.Level = Level;
 
-            Player = new Player(Engine, Level.GetSpawnPoint());
-            Engine.Player = Player;
+            Player = new Player(Engine, new Vector2(6, 5));
 
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
@@ -92,7 +92,7 @@ namespace Mystery.ScreenManagement.Screens
 
             if (IsActive)
             {
-                Engine.Camera.Position = Player.Position + new Vector2(200, 0);
+                Engine.Camera.Position = Player.Position;
 
                 Engine.Update(gameTime);
             }

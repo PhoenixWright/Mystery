@@ -11,6 +11,7 @@ using Krypton.Lights;
 using Mystery.Components.EngineComponents;
 using Mystery.Components.GraphicsComponents;
 using Mystery.GameObjects;
+using Mystery.GameObjects.TileBased;
 using Mystery.ScreenManagement;
 using Mystery.ScreenManagement.Screens;
 
@@ -54,7 +55,7 @@ namespace Mystery
 
             Audio = new Audio(this);
             Input = new InputState();
-            Physics = new Physics(this);
+            //Physics = new Physics(this);
             Video = new Video(this);
 
             // these things require video
@@ -92,7 +93,7 @@ namespace Mystery
         public void Update(GameTime gameTime)
         {
             Input.Update(gameTime);
-            Physics.Update(gameTime);
+            //Physics.Update(gameTime);
 
             if (Input.IsKeyDown(Global.Configuration.GetKeyConfig("GameControls", "CameraUpKey")))
             {
@@ -179,11 +180,11 @@ namespace Mystery
         {
             if (Global.Configuration.GetBooleanConfig("Debug", "ShowDebugView"))
             {
-                Lighting.DebugDraw();
+                //Lighting.DebugDraw();
 
                 // need this to allow the farseer debug view transparency to work
                 Video.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-                Physics.Draw(gameTime);
+                //Physics.Draw(gameTime);
             }
         }
 

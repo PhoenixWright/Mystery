@@ -69,6 +69,7 @@
     <Compile Include="Components\GameComponents\Animation.cs" />
     <Compile Include="Components\GameComponents\RotatedRectangle.cs" />
     <Compile Include="Components\GameComponents\Sprite.cs" />
+    <Compile Include="Components\GameComponents\TileBased\TileCharacter.cs" />
     <Compile Include="Components\GraphicsComponents\BloomComponent.cs" />
     <Compile Include="Components\GraphicsComponents\BloomSettings.cs" />
     <Compile Include="Components\GraphicsComponents\ParticleEffectComponent.cs" />
@@ -83,30 +84,15 @@
     <Compile Include="Components\PhysicsComponents\SensorPhysicsComponent.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameObjects\Bullet.cs" />
-    <Compile Include="GameObjects\Enemies\FlyingBoxEnemy.cs" />
-    <Compile Include="GameObjects\Enemies\PlayerEnemy.cs" />
-    <Compile Include="GameObjects\Enemies\RollingCircleEnemy.cs" />
-    <Compile Include="GameObjects\Enemy.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="GameObjects\Level.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GameObjects\LightObjects\EffectLight.cs" />
-    <Compile Include="GameObjects\LightObjects\GravityLight.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GameObjects\LightObjects\Light.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GameObjects\LightObjects\NullLight.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="GameObjects\LightObjects\GravityLight.cs" />
+    <Compile Include="GameObjects\LightObjects\Light.cs" />
+    <Compile Include="GameObjects\LightObjects\NullLight.cs" />
     <Compile Include="GameObjects\LightObjects\VelocityLight.cs" />
-    <Compile Include="GameObjects\Player.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="GameObjects\TileBased\Player.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Krypton\Common\BoundingRect.cs" />
     <Compile Include="Krypton\KryptonEngine.cs" />
