@@ -27,6 +27,7 @@ namespace Mystery
 
         public Audio Audio { get; private set; }
         public Camera2D Camera { get; private set; }
+        public Camera3D Camera3D { get; set; }
         public InputState Input { get; private set; }
         public Level Level { get; set; }
         public Lighting Lighting { get; private set; }
@@ -66,9 +67,9 @@ namespace Mystery
 
             SpriteBatch = new SpriteBatch(Global.GraphicsDeviceManager.GraphicsDevice);
 
-            BloomComponent = new BloomComponent(this);
-            BloomComponent.DrawOrder = int.MaxValue;
-            BloomComponent.LoadContent();
+            //BloomComponent = new BloomComponent(this);
+            //BloomComponent.DrawOrder = int.MaxValue;
+            //BloomComponent.LoadContent();
 
             Updating = false;
         }

@@ -23,7 +23,7 @@ using Mystery.GameObjects.LightObjects;
 using Mystery.ScreenManagement;
 using Mystery.ScreenManagement.Screens;
 
-namespace Mystery.GameObjects
+namespace Mystery.GameObjects.TileBased
 {
     public class Level : Component
     {

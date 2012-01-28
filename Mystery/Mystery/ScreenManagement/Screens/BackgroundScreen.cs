@@ -13,6 +13,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Mystery.Components.EngineComponents;
 #endregion
 
 namespace Mystery.ScreenManagement.Screens
@@ -29,12 +30,11 @@ namespace Mystery.ScreenManagement.Screens
         ContentManager content;
 
         // Skybox
+        Camera3D camera;
         Engine engine;
         Effect effect;
         Texture2D[] skyboxTextures;
         Model skyboxModel;
-        Matrix viewMatrix;
-        Matrix projectionMatrix;
         Vector3 cameraTarget;
 
         #endregion
@@ -65,9 +65,10 @@ namespace Mystery.ScreenManagement.Screens
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
             engine = new Engine(content, screenManager);
-            cameraTarget = new Vector3(1, 1, 1);
-            viewMatrix = Matrix.CreateLookAt(Vector3.Zero, cameraTarget, Vector3.Up);
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, engine.Video.GraphicsDevice.Viewport.AspectRatio, 0.2f, 500.0f);
+
+            camera = new Camera3D(engine);
+            camera.Target = new Vector3(1, 0, 0);
+
             effect = engine.Content.Load<Effect>(@"Shaders\Effects");
             skyboxModel = LoadModel(@"Skyboxes\Space", out skyboxTextures);
         }
@@ -96,8 +97,8 @@ namespace Mystery.ScreenManagement.Screens
                                                        bool coveredByOtherScreen)
         {
             // this gets pretty close to what we want, camera target just needs to go around the cam at 0, 0, 0
-            cameraTarget.Y += .01f;
-            viewMatrix = Matrix.CreateLookAt(Vector3.Zero, cameraTarget, Vector3.Up);
+            camera.Target = new Vector3(1, camera.Target.Y + .01f, 1);
+            engine.Update(gameTime);
 
             base.Update(gameTime, otherScreenHasFocus, false);
         }
@@ -168,8 +169,8 @@ namespace Mystery.ScreenManagement.Screens
                     Matrix worldMatrix = skyboxTransforms[mesh.ParentBone.Index];
                     currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
                     currentEffect.Parameters["xWorld"].SetValue(worldMatrix);
-                    currentEffect.Parameters["xView"].SetValue(viewMatrix);
-                    currentEffect.Parameters["xProjection"].SetValue(projectionMatrix);
+                    currentEffect.Parameters["xView"].SetValue(camera.ViewMatrix);
+                    currentEffect.Parameters["xProjection"].SetValue(camera.ProjectionMatrix);
                     currentEffect.Parameters["xTexture"].SetValue(skyboxTextures[i++]);
                 }
 

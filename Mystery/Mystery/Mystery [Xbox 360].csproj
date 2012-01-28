@@ -61,6 +61,7 @@
     <Compile Include="Component.cs" />
     <Compile Include="Components\EngineComponents\Audio.cs" />
     <Compile Include="Components\EngineComponents\Camera.cs" />
+    <Compile Include="Components\EngineComponents\Camera3D.cs" />
     <Compile Include="Components\EngineComponents\Configuration.cs" />
     <Compile Include="Components\EngineComponents\InputState.cs" />
     <Compile Include="Components\EngineComponents\Lighting.cs" />
@@ -84,14 +85,12 @@
     <Compile Include="Components\PhysicsComponents\SensorPhysicsComponent.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameObjects\Level.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="GameObjects\LightObjects\EffectLight.cs" />
     <Compile Include="GameObjects\LightObjects\GravityLight.cs" />
     <Compile Include="GameObjects\LightObjects\Light.cs" />
     <Compile Include="GameObjects\LightObjects\NullLight.cs" />
     <Compile Include="GameObjects\LightObjects\VelocityLight.cs" />
+    <Compile Include="GameObjects\TileBased\Level.cs" />
     <Compile Include="GameObjects\TileBased\Player.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Krypton\Common\BoundingRect.cs" />
