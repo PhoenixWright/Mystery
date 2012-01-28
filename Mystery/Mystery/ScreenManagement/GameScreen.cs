@@ -151,7 +151,7 @@ namespace Mystery.ScreenManagement
             internal set { screenManager = value; }
         }
 
-        ScreenManager screenManager;
+        public ScreenManager screenManager;
 
 
         /// <summary>

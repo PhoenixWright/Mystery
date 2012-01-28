@@ -140,9 +140,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Shaders\" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Lights\BlueSpotlight.png">
       <Name>BlueSpotlight</Name>
       <Importer>TextureImporter</Importer>
@@ -176,6 +173,16 @@
       <Name>KryptonEffect</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Shaders\Effects.fx">
+      <Name>Effects</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Skyboxes\Space.x">
+      <Name>Space</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -214,64 +221,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Characters\GrayRotatingBox.png">
-      <Name>GrayRotatingBox</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Characters\FlickeringCircle.png">
-      <Name>FlickeringCircle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Characters\Player\PlayerWalkingRight.png">
-      <Name>PlayerWalkingRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Characters\Player\PlayerStandingRight.png">
-      <Name>PlayerStandingRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Characters\Player\PlayerCrouchingRight.png">
-      <Name>PlayerCrouchingRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Characters\Player\PlayerJumpingRight.png">
-      <Name>PlayerJumpingRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Characters\Player\PlayerFallingRight.png">
-      <Name>PlayerFallingRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Miscellaneous\RedBullet.png">
       <Name>RedBullet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Characters\Player\PlayerArmShootingRight.png">
-      <Name>PlayerArmShootingRight</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -291,72 +242,43 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Characters\PlayerEnemy\EnemyArmShootingRight.png">
-      <Name>EnemyArmShootingRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Characters\PlayerEnemy\EnemyCrouchingRight.png">
-      <Name>EnemyCrouchingRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Characters\PlayerEnemy\EnemyFallingRight.png">
-      <Name>EnemyFallingRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Characters\PlayerEnemy\EnemyJumpingRight.png">
-      <Name>EnemyJumpingRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Characters\PlayerEnemy\EnemyStandingRight.png">
-      <Name>EnemyStandingRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Characters\PlayerEnemy\EnemyWalkingRight.png">
-      <Name>EnemyWalkingRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Characters\Player\PlayerBackArm.png">
-      <Name>PlayerBackArm</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Characters\Player\PlayerFrontArm.png">
-      <Name>PlayerFrontArm</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Characters\Player\PlayerArmAirRight.png">
-      <Name>PlayerArmAirRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Characters\Player\PlayerArmCrouchingRight.png">
-      <Name>PlayerArmCrouchingRight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Characters\Player\PlayerArmStanding.png">
-      <Name>PlayerArmStanding</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Audio\MysteryAudio.xap">
       <Name>MysteryAudio</Name>
       <Importer>XactImporter</Importer>
       <Processor>XactProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Skyboxes\Space_Back.png">
+      <Name>Space_Back</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Skyboxes\Space_Bottom.png">
+      <Name>Space_Bottom</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Skyboxes\Space_Front.png">
+      <Name>Space_Front</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Skyboxes\Space_Left.png">
+      <Name>Space_Left</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Skyboxes\Space_Right.png">
+      <Name>Space_Right</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Skyboxes\Space_Top.png">
+      <Name>Space_Top</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
