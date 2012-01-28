@@ -8,7 +8,7 @@ namespace Mystery
         /// </summary>
         static void Main(string[] args)
         {
-            using (NePlusGame game = new NePlusGame())
+            using (MysteryGame game = new MysteryGame())
             {
                 game.Run();
             }

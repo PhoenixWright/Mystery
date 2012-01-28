@@ -249,6 +249,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fonts\Moire.spritefont">
+      <Name>Moire</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="Skyboxes\Space_Back.png">
       <Name>Space_Back</Name>
       <Importer>TextureImporter</Importer>
@@ -279,6 +284,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ParticleEffects\StarTrail.xml">
+      <Name>StarTrail</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

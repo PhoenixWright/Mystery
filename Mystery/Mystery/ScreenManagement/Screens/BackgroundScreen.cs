@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Mystery.Components.EngineComponents;
+using Mystery.Components.GraphicsComponents;
 #endregion
 
 namespace Mystery.ScreenManagement.Screens
@@ -28,14 +29,6 @@ namespace Mystery.ScreenManagement.Screens
         #region Fields
 
         ContentManager content;
-
-        // Skybox
-        Camera3D camera;
-        Engine engine;
-        Effect effect;
-        Texture2D[] skyboxTextures;
-        Model skyboxModel;
-        Vector3 cameraTarget;
 
         #endregion
 
@@ -63,14 +56,6 @@ namespace Mystery.ScreenManagement.Screens
         {
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
-
-            engine = new Engine(content, screenManager);
-
-            camera = new Camera3D(engine);
-            camera.Target = new Vector3(1, 0, 0);
-
-            effect = engine.Content.Load<Effect>(@"Shaders\Effects");
-            skyboxModel = LoadModel(@"Skyboxes\Space", out skyboxTextures);
         }
 
 
@@ -96,10 +81,6 @@ namespace Mystery.ScreenManagement.Screens
         public override void Update(GameTime gameTime, bool otherScreenHasFocus,
                                                        bool coveredByOtherScreen)
         {
-            // this gets pretty close to what we want, camera target just needs to go around the cam at 0, 0, 0
-            camera.Target = new Vector3(1, camera.Target.Y + .01f, 1);
-            engine.Update(gameTime);
-
             base.Update(gameTime, otherScreenHasFocus, false);
         }
 
@@ -109,10 +90,6 @@ namespace Mystery.ScreenManagement.Screens
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
-            engine.Video.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0);
-
-            DrawSkybox();
-
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
             Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
@@ -125,61 +102,5 @@ namespace Mystery.ScreenManagement.Screens
             spriteBatch.End();
         }
         #endregion
-
-        private Model LoadModel(string assetName, out Texture2D[] textures)
-        {
-            Model newModel = engine.Content.Load<Model>(assetName);
-            textures = new Texture2D[newModel.Meshes.Count];
-            int i = 0;
-            foreach (ModelMesh mesh in newModel.Meshes)
-                foreach (BasicEffect currentEffect in mesh.Effects)
-                    textures[i++] = currentEffect.Texture;
-
-            foreach (ModelMesh mesh in newModel.Meshes)
-            {
-                foreach (ModelMeshPart meshPart in mesh.MeshParts)
-                {
-                    meshPart.Effect = effect.Clone();
-                }
-            }
-
-            return newModel;
-        }
-
-        private void DrawSkybox()
-        {
-            SamplerState ss = new SamplerState();
-            ss.AddressU = TextureAddressMode.Clamp;
-            ss.AddressV = TextureAddressMode.Clamp;
-
-            engine.Video.GraphicsDevice.SamplerStates[0] = ss;
-
-            DepthStencilState dss = new DepthStencilState();
-            dss.DepthBufferEnable = false;
-            engine.Video.GraphicsDevice.DepthStencilState = dss;
-
-            Matrix[] skyboxTransforms = new Matrix[skyboxModel.Bones.Count];
-            skyboxModel.CopyAbsoluteBoneTransformsTo(skyboxTransforms);
-
-            int i = 0;
-            foreach (ModelMesh mesh in skyboxModel.Meshes)
-            {
-                foreach (Effect currentEffect in mesh.Effects)
-                {
-                    Matrix worldMatrix = skyboxTransforms[mesh.ParentBone.Index];
-                    currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
-                    currentEffect.Parameters["xWorld"].SetValue(worldMatrix);
-                    currentEffect.Parameters["xView"].SetValue(camera.ViewMatrix);
-                    currentEffect.Parameters["xProjection"].SetValue(camera.ProjectionMatrix);
-                    currentEffect.Parameters["xTexture"].SetValue(skyboxTextures[i++]);
-                }
-
-                mesh.Draw();
-            }
-
-            dss = new DepthStencilState();
-            dss.DepthBufferEnable = true;
-            engine.Video.GraphicsDevice.DepthStencilState = dss;
-        }
     }
 }

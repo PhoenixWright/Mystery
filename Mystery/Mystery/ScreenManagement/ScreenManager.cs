@@ -88,7 +88,7 @@ namespace Mystery.ScreenManagement
             content.RootDirectory = "Content";
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = content.Load<SpriteFont>(@"Fonts\MenuFont");
+            font = content.Load<SpriteFont>(@"Fonts\Moire");
             blankTexture = content.Load<Texture2D>(@"Miscellaneous\Blank");
 
             // Tell each of the screens to load their content.

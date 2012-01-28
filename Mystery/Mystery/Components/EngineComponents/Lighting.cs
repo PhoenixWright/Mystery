@@ -13,6 +13,8 @@ namespace Mystery.Components.EngineComponents
         public KryptonEngine Krypton;
         public Texture2D PointLightTexture;
 
+        public bool Enabled { get; set; }
+
         public Lighting(Engine engine) : base(engine)
         {
             Krypton = new KryptonEngine(engine, @"Krypton\KryptonEffect");
@@ -52,6 +54,11 @@ namespace Mystery.Components.EngineComponents
 
         public override void Draw(GameTime gameTime)
         {
+            if (!Enabled)
+            {
+                return;
+            }
+
             Krypton.Draw(gameTime);
 
             base.Draw(gameTime);

@@ -8,12 +8,12 @@ namespace Mystery
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class NePlusGame : Microsoft.Xna.Framework.Game
+    public class MysteryGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
 
-        public NePlusGame()
+        public MysteryGame()
         {
             // tried to move this code, but it seems that nothing will draw unless it is located here
             // I seriously can't believe how many times this has come up

@@ -1,5 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+
+using Mystery.Components.GameComponents;
 
 namespace Mystery.ScreenManagement.Screens
 {
@@ -8,6 +9,9 @@ namespace Mystery.ScreenManagement.Screens
     /// </summary>
     class MainMenuScreen : MenuScreen
     {
+        Engine engine;
+        Skybox skybox;
+
         /// <summary>
         /// Constructor fills in the menu contents.
         /// </summary>
@@ -15,7 +19,7 @@ namespace Mystery.ScreenManagement.Screens
             : base("")
         {
             // Create our menu entries.
-            MenuEntry playGameMenuEntry = new MenuEntry("Play Game");
+            MenuEntry playGameMenuEntry = new MenuEntry("New Game");
             MenuEntry exitMenuEntry = new MenuEntry("Exit");
 
             // Hook up menu event handlers.
@@ -27,11 +31,39 @@ namespace Mystery.ScreenManagement.Screens
             MenuEntries.Add(exitMenuEntry);
         }
 
+        public override void LoadContent()
+        {
+            // create an engine instance and disable lighting so that the skybox can be seen without light objects
+            engine = new Engine(ScreenManager.Game.Content, ScreenManager);
+            engine.Lighting.Enabled = false;
+
+            skybox = new Skybox(engine);
+
+            base.LoadContent();
+        }
+
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
+        {
+            skybox.CameraTarget = new Vector3(1, skybox.CameraTarget.Y + 0.01f, 1);
+            engine.Update(gameTime);
+
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            engine.Draw(gameTime);
+
+            base.Draw(gameTime);
+        }
+
         /// <summary>
         /// Event handler for when the Play Game menu entry is selected.
         /// </summary>
         void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
+            // TODO: handle the animation to the character ship here
+
             LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
                                new GameplayScreen());
         }

@@ -39,9 +39,6 @@ namespace Mystery
 
         public bool Updating { get; private set; }
 
-        // components
-        public BloomComponent BloomComponent;
-
         public ScreenManager ScreenManager;
 
         public Engine(ContentManager content, ScreenManager screenManager)
@@ -66,10 +63,6 @@ namespace Mystery
             Lighting = new Lighting(this);
 
             SpriteBatch = new SpriteBatch(Global.GraphicsDeviceManager.GraphicsDevice);
-
-            //BloomComponent = new BloomComponent(this);
-            //BloomComponent.DrawOrder = int.MaxValue;
-            //BloomComponent.LoadContent();
 
             Updating = false;
         }
@@ -157,9 +150,10 @@ namespace Mystery
 
         public void Draw(GameTime gameTime)
         {
-            Lighting.Krypton.LightMapPrepare();
-
-            BloomComponent.BeginDraw();
+            if (Lighting.Enabled)
+            {
+                Lighting.Krypton.LightMapPrepare();
+            }
 
             Video.GraphicsDevice.Clear(Color.CornflowerBlue);
 
@@ -172,8 +166,6 @@ namespace Mystery
                 c.Draw(gameTime);
             }
 
-            BloomComponent.Draw(gameTime);
-
             DebugDraw(gameTime);
         }
 
@@ -184,7 +176,7 @@ namespace Mystery
                 //Lighting.DebugDraw();
 
                 // need this to allow the farseer debug view transparency to work
-                Video.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+                //Video.GraphicsDevice.BlendState = BlendState.AlphaBlend;
                 //Physics.Draw(gameTime);
             }
         }
