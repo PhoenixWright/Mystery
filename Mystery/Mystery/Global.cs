@@ -42,6 +42,8 @@ namespace Mystery
             Projectiles,
             Lighting,
             AboveLighting,
+            TextBackground,
+            Text,
         }
 
         public enum Shapes

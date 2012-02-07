@@ -2,6 +2,9 @@
 
 using Mystery.Components.GameComponents;
 
+// test
+using Mystery.Components.GameComponents.TextBased;
+
 namespace Mystery.ScreenManagement.Screens
 {
     /// <summary>
@@ -38,8 +41,11 @@ namespace Mystery.ScreenManagement.Screens
             engine.Lighting.Enabled = false;
 
             skybox = new Skybox(engine);
+            Conversation conversation = new Conversation(engine);
+            //AnimatedText text = new AnimatedText(engine, Vector2.Zero, "This is some test text.");
+            //DialogBox dialog = new DialogBox(engine);
 
-            base.LoadContent();
+             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)

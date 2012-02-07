@@ -31,7 +31,7 @@ namespace Mystery.Components.GameComponents.TileBased
             testArt = new Sprite(Engine, @"Characters\TestSquare");
             testArt.Position = Position;
 
-            MovementSpeed = Global.Configuration.GetFloatConfig("TileCharacterVariables", "MovementSpeed");
+            MovementSpeed = Global.Configuration.GetFloatConfig("TileBasedVariables", "MovementSpeed");
             MoveStartTime = 0.0f;
 
             Engine.AddComponent(this);

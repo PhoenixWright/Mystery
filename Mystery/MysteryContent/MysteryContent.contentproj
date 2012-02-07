@@ -159,11 +159,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Processor>PassThroughProcessor</Processor>
     </None>
-    <Compile Include="Fonts\MenuFont.spritefont">
-      <Name>MenuFont</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
     <Compile Include="Fonts\GameFont.spritefont">
       <Name>GameFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -249,8 +244,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fonts\Moire.spritefont">
-      <Name>Moire</Name>
+    <Compile Include="Fonts\MenuFont.spritefont">
+      <Name>MenuFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <Compile Include="Fonts\DialogueFont.spritefont">
+      <Name>DialogueFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
