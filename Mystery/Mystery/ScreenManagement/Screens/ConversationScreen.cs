@@ -1,93 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using TiledLib;
-
-using Krypton;
-using Krypton.Lights;
-
-using Mystery.Components.EngineComponents;
-using Mystery.GameObjects;
-using Mystery.GameObjects.TileBased;
-
 namespace Mystery.ScreenManagement.Screens
 {
-    /// <summary>
-    /// This screen implements the actual game logic. It is just a
-    /// placeholder to get the idea across: you'll probably want to
-    /// put some more interesting gameplay in here!
-    /// </summary>
-    class GameplayScreen : GameScreen
+    public class ConversationScreen : GameScreen
     {
-        ContentManager content;
-
-        Engine Engine;
-        Level Level;
-        Player Player;
-        List<NPC> NPCs;
-
         float pauseAlpha;
 
         /// <summary>
-        /// Constructor.
+        /// Constructor. // TODO: add appropriate constructor to display the proper conversation
         /// </summary>
-        public GameplayScreen()
+        public ConversationScreen()
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
-        }
-
-        /// <summary>
-        /// Load content for the game.
-        /// </summary>
-        public override void LoadContent()
-        {
-            if (content == null)
-                content = new ContentManager(ScreenManager.Game.Services, "Content");
-
-            Engine = new Engine(content, ScreenManager);
-
-            Level = new Level(Engine, @"Maps\TestMap");
-
-            Engine.Level = Level;
-
-            Player = new Player(Engine, new Vector2(6, 5));
-
-            NPCs = new List<NPC>();
-            Engine.NPCs = NPCs;
-
-            // get a list of NPC objects out of the level and create them
-            List<MapObject> npcs = Level.GetLayerObjects("NPCs");
-            foreach (MapObject npcObject in npcs)
-            {
-                Vector2 npcPosition = new Vector2(npcObject.Bounds.X / Level.TileWidth, npcObject.Bounds.Y / Level.TileHeight);
-                NPC npc = new NPC(Engine, npcPosition);
-                NPCs.Add(npc);
-            }
-
-            // A real game would probably have more content than this sample, so
-            // it would take longer to load. We simulate that by delaying for a
-            // while, giving you a chance to admire the beautiful loading screen.
-            Thread.Sleep(1000);
-
-            // once the load has finished, we use ResetElapsedTime to tell the game's
-            // timing mechanism that we have just finished a very long frame, and that
-            // it should not try to catch up.
-            ScreenManager.Game.ResetElapsedTime();
-        }
-
-        /// <summary>
-        /// Unload graphics content used by the game.
-        /// </summary>
-        public override void UnloadContent()
-        {
-            content.Unload();
         }
 
         /// <summary>
@@ -105,19 +34,7 @@ namespace Mystery.ScreenManagement.Screens
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
-
-            if (IsActive)
-            {
-                Engine.Camera.Position = Player.Position;
-
-                Engine.Update(gameTime);
-            }
-            else
-            {
-                Engine.Pause();
-            }
         }
-
 
         /// <summary>
         /// Lets the game respond to player input. Unlike the Update method,
@@ -148,14 +65,10 @@ namespace Mystery.ScreenManagement.Screens
         }
 
         /// <summary>
-        /// Draws the gameplay screen.
+        /// Draws the conversation screen.
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
-            ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 0, 0);
-
-            Engine.Draw(gameTime);
-
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
             {

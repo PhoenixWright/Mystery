@@ -13,6 +13,8 @@ namespace Mystery.Components.GameComponents.TileBased
 
         public bool Moving { get; private set; }
 
+        public Global.Directions Direction { get; private set; }
+
         /// <summary>
         /// Time in seconds it takes to move from one tile to the next for a standard move operation.
         /// </summary>
@@ -27,6 +29,7 @@ namespace Mystery.Components.GameComponents.TileBased
             TilePosition = tilePosition;
             Position = new Vector2(TilePosition.X * Engine.Level.TileWidth, TilePosition.Y * Engine.Level.TileHeight);
             Moving = false;
+            Direction = Global.Directions.Down;
 
             testArt = new Sprite(Engine, @"Characters\TestSquare");
             testArt.Position = Position;
@@ -62,6 +65,8 @@ namespace Mystery.Components.GameComponents.TileBased
         
         public bool Move(Global.Directions direction)
         {
+            Direction = direction;
+
             if (Moving)
             {
                 return false;

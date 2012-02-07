@@ -33,6 +33,7 @@ namespace Mystery
         public Lighting Lighting { get; private set; }
         public Physics Physics { get; private set; }
         public Player Player { get; set; }
+        public List<NPC> NPCs { get; set; }
         public Video Video { get; private set; }
 
         public SpriteBatch SpriteBatch { get; private set; }

@@ -37,8 +37,8 @@ namespace Mystery
         public enum Layers
         {
             Background,
+            NPCs,
             Player,
-            Enemies,
             Projectiles,
             Lighting,
             AboveLighting,

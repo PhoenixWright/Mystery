@@ -172,6 +172,7 @@
     <Compile Include="GameObjects\LightObjects\VelocityLight.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GameObjects\TileBased\NPC.cs" />
     <Compile Include="GameObjects\TileBased\Player.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Krypton\Common\BoundingRect.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="ScreenManagement\PlayerIndexEventArgs.cs" />
     <Compile Include="ScreenManagement\ScreenManager.cs" />
     <Compile Include="ScreenManagement\Screens\BackgroundScreen.cs" />
+    <Compile Include="ScreenManagement\Screens\ConversationScreen.cs" />
     <Compile Include="ScreenManagement\Screens\GameplayScreen.cs" />
     <Compile Include="ScreenManagement\Screens\LoadingScreen.cs" />
     <Compile Include="ScreenManagement\Screens\MainMenuScreen.cs" />

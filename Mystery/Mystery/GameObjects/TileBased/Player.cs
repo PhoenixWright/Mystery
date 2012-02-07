@@ -52,6 +52,41 @@ namespace Mystery.GameObjects.TileBased
 
         public override void Update(GameTime gameTime)
         {
+            if (!Moving && (Engine.Input.IsButtonDown(Global.Configuration.GetButtonConfig("GameControls", "TalkButton")) || Engine.Input.IsKeyDown(Global.Configuration.GetKeyConfig("GameControls", "TalkKey"))))
+            {
+                // check if there is an NPC in the direction that the player is currently facing
+                Vector2 tilePlayerIsFacing = Vector2.Zero;
+                switch (Direction)
+                {
+                    case Global.Directions.Up:
+                        tilePlayerIsFacing = new Vector2(TilePosition.X, TilePosition.Y - 1);
+                        break;
+
+                    case Global.Directions.Down:
+                        tilePlayerIsFacing = new Vector2(TilePosition.X, TilePosition.Y + 1);
+                        break;
+
+                    case Global.Directions.Left:
+                        tilePlayerIsFacing = new Vector2(TilePosition.X - 1, TilePosition.Y);
+                        break;
+
+                    case Global.Directions.Right:
+                        tilePlayerIsFacing = new Vector2(TilePosition.X + 1, TilePosition.Y);
+                        break;
+
+                    default:
+                        break;
+                }
+
+                foreach (NPC npc in Engine.NPCs)
+                {
+                    if (npc.TilePosition == tilePlayerIsFacing)
+                    {
+                        Engine.ScreenManager.AddScreen(new ConversationScreen(), PlayerIndex.One);
+                    }
+                }
+            }
+
             if (Engine.Input.IsButtonDown(Global.Configuration.GetButtonConfig("GameControls", "UpButton")) || Engine.Input.IsKeyDown(Global.Configuration.GetKeyConfig("GameControls", "UpKey")))
             {
                 Move(Global.Directions.Up);

@@ -154,7 +154,7 @@ namespace Mystery.GameObjects.TileBased
 
                 TileLayer tileLayer = layer as TileLayer;
 
-                if (!tileLayer.Visible)
+                if (tileLayer == null || !tileLayer.Visible)
                     continue;
 
                 // figure out the min and max tile indices to draw
@@ -183,6 +183,20 @@ namespace Mystery.GameObjects.TileBased
             Engine.SpriteBatch.End();
         }
 
+        public List<MapObject> GetLayerObjects(string layerName)
+        {
+            List<MapObject> mapObjects = new List<MapObject>();
+
+            MapObjectLayer layer = map.GetLayer(layerName) as MapObjectLayer;
+
+            foreach (MapObject mapObject in layer.Objects)
+            {
+                mapObjects.Add(mapObject);
+            }
+
+            return mapObjects;
+        }
+
         public bool CheckMove(int x, int y)
         {
             bool valid = false;
@@ -195,6 +209,13 @@ namespace Mystery.GameObjects.TileBased
             }
 
             // check npcs...
+            foreach (NPC npc in Engine.NPCs)
+            {
+                if (npc.TilePosition.X == x && npc.TilePosition.Y == y)
+                {
+                    valid = false;
+                }
+            }
 
             return valid;
         }
