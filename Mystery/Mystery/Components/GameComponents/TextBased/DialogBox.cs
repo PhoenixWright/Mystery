@@ -5,13 +5,22 @@ namespace Mystery.Components.GameComponents.TextBased
 {
     public class DialogBox : Component
     {
+        public enum State
+        {
+            Opening,
+            Open,
+            Closing,
+            Closed
+        };
+
         private bool Animated;
+
+        public State DialogState { get; private set; }
 
         // text
         AnimatedText animatedText;
 
         // Size
-        public bool IsDone { get; private set; }
         public Rectangle Size { get; set; }
         private Rectangle CurrentSize;
         private double animationSeconds;
@@ -39,15 +48,15 @@ namespace Mystery.Components.GameComponents.TextBased
             int y = engine.Video.GraphicsDevice.Viewport.Bounds.Bottom - engine.Video.GraphicsDevice.Viewport.Height / 3;
             int height = engine.Video.GraphicsDevice.Viewport.Bounds.Bottom - y;
 
-            IsDone = !Animated;
-
-            if (IsDone)
+            if (!animated)
             {
                 CurrentSize = Size;
+                DialogState = State.Open;
             }
             else
             {
                 CurrentSize = new Rectangle(x + width / 2, y + height / 2, 1, 1);
+                DialogState = State.Opening;
             }
             Size = new Rectangle(x, y, width, height);
             startTime = 0.0;
@@ -66,7 +75,7 @@ namespace Mystery.Components.GameComponents.TextBased
 
         public override void Update(GameTime gameTime)
         {
-            if (Animated && !IsDone)
+            if (Animated && (DialogState == State.Opening || DialogState == State.Closing))
             {
                 if (startTime == 0.0)
                 {
@@ -77,16 +86,35 @@ namespace Mystery.Components.GameComponents.TextBased
                 double progressPercentage = ((currentTime - startTime) / 1000) / animationSeconds;
                 if (progressPercentage > 1)
                 {
-                    CurrentSize = Size;
-                    IsDone = true;
+                    if (DialogState == State.Opening)
+                    {
+                        DialogState = State.Open;
+                        CurrentSize = Size;
+                    }
+                    else
+                    {
+                        DialogState = State.Closed;
+                        CurrentSize = Rectangle.Empty;
+                    }
                 }
                 else
                 {
-                    // calculate current size
-                    CurrentSize.X = (int)(Size.X + Size.Width / 2 - (Size.Width / 2 * progressPercentage));
-                    CurrentSize.Y = (int)(Size.Y + Size.Height / 2 - (Size.Height / 2 * progressPercentage));
-                    CurrentSize.Width = (int)(Size.Width * progressPercentage);
-                    CurrentSize.Height = (int)(Size.Height * progressPercentage);
+                    if (DialogState == State.Opening)
+                    {
+                        // calculate current size
+                        CurrentSize.X = (int)(Size.X + Size.Width / 2 - (Size.Width / 2 * progressPercentage));
+                        CurrentSize.Y = (int)(Size.Y + Size.Height / 2 - (Size.Height / 2 * progressPercentage));
+                        CurrentSize.Width = (int)(Size.Width * progressPercentage);
+                        CurrentSize.Height = (int)(Size.Height * progressPercentage);
+                    }
+                    else
+                    {
+                        // calculate current size
+                        CurrentSize.X = (int)(Size.X + (Size.Width / 2 * progressPercentage));
+                        CurrentSize.Y = (int)(Size.Y + (Size.Height / 2 * progressPercentage));
+                        CurrentSize.Width = (int)(Size.Width * (1 - progressPercentage));
+                        CurrentSize.Height = (int)(Size.Height * (1 - progressPercentage));
+                    }
                 }
             }
 
@@ -100,6 +128,12 @@ namespace Mystery.Components.GameComponents.TextBased
             Engine.SpriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void Close()
+        {
+            DialogState = State.Closing;
+            startTime = 0.0f;
         }
     }
 }

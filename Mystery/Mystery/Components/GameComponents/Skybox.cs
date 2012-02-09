@@ -43,6 +43,11 @@ namespace Mystery.Components.GameComponents
             base.Draw(gameTime);
         }
 
+        public override void UnloadContent()
+        {
+            base.UnloadContent();
+        }
+
         private Model LoadModel(string assetName, out Texture2D[] textures)
         {
             Model newModel = Engine.Content.Load<Model>(assetName);

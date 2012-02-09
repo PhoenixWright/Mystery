@@ -156,8 +156,6 @@ namespace Mystery
                 Lighting.Krypton.LightMapPrepare();
             }
 
-            Video.GraphicsDevice.Clear(Color.CornflowerBlue);
-
             // this is placeholder code for testing stuff
             SpriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Camera.CameraMatrix);
             SpriteBatch.End();

@@ -6,18 +6,20 @@ namespace Mystery.Components.GameComponents.TextBased
     {
         private AnimatedText currentText;
         private DialogBox dialogBox;
+        public bool IsDone { get; private set; }
 
         public Conversation(Engine engine)
             : base(engine)
         {
             dialogBox = new DialogBox(engine, true);
+            IsDone = false;
 
             Engine.AddComponent(this);
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            if (dialogBox.IsDone)
+            if (dialogBox.DialogState == DialogBox.State.Open)
             {
                 if (currentText == null)
                 {
@@ -25,7 +27,16 @@ namespace Mystery.Components.GameComponents.TextBased
                 }
                 else
                 {
+                    if (currentText.IsDone)
+                    {
+                        Engine.RemoveComponent(currentText);
+                        dialogBox.Close();
+                    }
                 }
+            }
+            else if (dialogBox.DialogState == DialogBox.State.Closed)
+            {
+                IsDone = true;
             }
 
             base.Update(gameTime);

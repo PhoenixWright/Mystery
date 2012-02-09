@@ -1,14 +1,22 @@
 ﻿using System;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+
+using Mystery.Components.GameComponents.TextBased;
 
 namespace Mystery.ScreenManagement.Screens
 {
     public class ConversationScreen : GameScreen
     {
         float pauseAlpha;
+
+        ContentManager content;
+
+        Engine Engine;
+        Conversation Conversation;
 
         /// <summary>
         /// Constructor. // TODO: add appropriate constructor to display the proper conversation
@@ -17,6 +25,18 @@ namespace Mystery.ScreenManagement.Screens
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+        }
+
+        public override void LoadContent()
+        {
+            if (content == null)
+                content = new ContentManager(ScreenManager.Game.Services, "Content");
+
+            Engine = new Engine(content, ScreenManager);
+
+            Conversation = new Conversation(Engine);
+
+            base.LoadContent();
         }
 
         /// <summary>
@@ -34,6 +54,20 @@ namespace Mystery.ScreenManagement.Screens
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
+
+            if (IsActive)
+            {
+                Engine.Update(gameTime);
+
+                if (Conversation.IsDone)
+                {
+                    ExitScreen();
+                }
+            }
+            else
+            {
+                Engine.Pause();
+            }
         }
 
         /// <summary>
@@ -69,8 +103,11 @@ namespace Mystery.ScreenManagement.Screens
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
+            Engine.Draw(gameTime);
+
             // If the game is transitioning on or off, fade it out to black.
-            if (TransitionPosition > 0 || pauseAlpha > 0)
+            // If the game is transitioning on or off, fade it out to black.
+            if (pauseAlpha > 0)
             {
                 float alpha = MathHelper.Lerp(1f - TransitionAlpha, 1f, pauseAlpha / 2);
 

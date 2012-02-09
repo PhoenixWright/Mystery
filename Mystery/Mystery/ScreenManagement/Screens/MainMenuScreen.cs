@@ -41,9 +41,6 @@ namespace Mystery.ScreenManagement.Screens
             engine.Lighting.Enabled = false;
 
             skybox = new Skybox(engine);
-            Conversation conversation = new Conversation(engine);
-            //AnimatedText text = new AnimatedText(engine, Vector2.Zero, "This is some test text.");
-            //DialogBox dialog = new DialogBox(engine);
 
              base.LoadContent();
         }
@@ -60,7 +57,22 @@ namespace Mystery.ScreenManagement.Screens
         {
             engine.Draw(gameTime);
 
+            // If the game is transitioning on or off, fade it out to black.
+            if (TransitionPosition > 0)
+            {
+                float alpha = MathHelper.Lerp(1f - TransitionAlpha, 1f, 0.0f);
+
+                ScreenManager.FadeBackBufferToBlack(alpha);
+            }
+
             base.Draw(gameTime);
+        }
+
+        public override void UnloadContent()
+        {
+            engine.UnloadContent();
+
+            base.UnloadContent();
         }
 
         /// <summary>
