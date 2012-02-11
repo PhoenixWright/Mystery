@@ -62,7 +62,7 @@ namespace Mystery.Components.GameComponents.TileBased
 
         // Movement Tracking Variables
         Vector2 TargetPosition;
-        
+
         public bool Move(Global.Directions direction)
         {
             Direction = direction;

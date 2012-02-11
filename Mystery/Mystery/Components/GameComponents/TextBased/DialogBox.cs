@@ -99,17 +99,16 @@ namespace Mystery.Components.GameComponents.TextBased
                 }
                 else
                 {
+                    // calculate current size
                     if (DialogState == State.Opening)
                     {
-                        // calculate current size
                         CurrentSize.X = (int)(Size.X + Size.Width / 2 - (Size.Width / 2 * progressPercentage));
                         CurrentSize.Y = (int)(Size.Y + Size.Height / 2 - (Size.Height / 2 * progressPercentage));
                         CurrentSize.Width = (int)(Size.Width * progressPercentage);
                         CurrentSize.Height = (int)(Size.Height * progressPercentage);
                     }
-                    else
+                    else if (DialogState == State.Closing)
                     {
-                        // calculate current size
                         CurrentSize.X = (int)(Size.X + (Size.Width / 2 * progressPercentage));
                         CurrentSize.Y = (int)(Size.Y + (Size.Height / 2 * progressPercentage));
                         CurrentSize.Width = (int)(Size.Width * (1 - progressPercentage));

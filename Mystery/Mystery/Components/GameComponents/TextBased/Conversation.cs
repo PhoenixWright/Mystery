@@ -23,7 +23,7 @@ namespace Mystery.Components.GameComponents.TextBased
             {
                 if (currentText == null)
                 {
-                    currentText = new AnimatedText(Engine, new Vector2(dialogBox.Size.Left + 5, dialogBox.Size.Top + 5), dialogBox.Size.Width - 10, "This is some test text.");
+                    currentText = new AnimatedText(Engine, new Vector2(dialogBox.Size.Left + 5, dialogBox.Size.Top + 5), dialogBox.Size.Width - 10, "It actually fucking works a little bit. Thank you for the email.  Our 6 Month Unlimited Package is usually priced at $600 but i would be willing to decrease that to $550 for you since you will only be in town for half the year.  Let me know if this is something that you are still interested in. Have a great week and I hope to see you at the studio soon!");
                 }
                 else
                 {

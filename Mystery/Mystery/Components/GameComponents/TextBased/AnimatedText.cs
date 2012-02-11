@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Mystery.Components.GameComponents.TextBased
@@ -17,6 +19,7 @@ namespace Mystery.Components.GameComponents.TextBased
         // state management
         private double startTime;
         private string currentString;
+        bool spedUp;
 
         public AnimatedText(Engine engine, Vector2 position, int width, string text)
             : base(engine)
@@ -28,10 +31,28 @@ namespace Mystery.Components.GameComponents.TextBased
             IsDone = false;
             MaxLineWidth = 0;
             Position = position;
-            Text = text;
 
             startTime = 0.0;
             currentString = "";
+            spedUp = false;
+
+            if (Font.MeasureString(text).Length() > width)
+            {
+                string line = string.Empty;
+                Text = string.Empty;
+                string[] words = text.Split(' ');
+
+                foreach (string word in words)
+                {
+                    if (Font.MeasureString(line + word).Length() > width)
+                    {
+                        Text = Text + line + '\n';
+                        line = string.Empty;
+                    }
+
+                    line = line + word + ' ';
+                }
+            }
 
             Engine.AddComponent(this);
         }
@@ -62,6 +83,15 @@ namespace Mystery.Components.GameComponents.TextBased
             else
             {
                 currentString = Text.Substring(0, charactersToDisplay);
+            }
+
+            if (Engine.Input.IsButtonDown(Global.Configuration.GetButtonConfig("GameControls", "TalkButton")) || Engine.Input.IsKeyDown(Global.Configuration.GetKeyConfig("GameControls", "TalkKey")))
+            {
+                if (!spedUp)
+                {
+                    spedUp = true;
+                    CPS += 50;
+                }
             }
 
             base.Update(gameTime);
