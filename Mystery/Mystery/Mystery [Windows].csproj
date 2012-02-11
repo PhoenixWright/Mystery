@@ -134,6 +134,7 @@
     <Compile Include="Components\GameComponents\TextBased\AnimatedText.cs" />
     <Compile Include="Components\GameComponents\TextBased\Conversation.cs" />
     <Compile Include="Components\GameComponents\TextBased\DialogBox.cs" />
+    <Compile Include="Components\GameComponents\TextBased\Dialogue.cs" />
     <Compile Include="Components\GameComponents\TileBased\TileCharacter.cs" />
     <Compile Include="Components\GraphicsComponents\BloomComponent.cs" />
     <Compile Include="Components\GraphicsComponents\BloomSettings.cs" />
