@@ -31,12 +31,13 @@ namespace Mystery.Components.GameComponents.TextBased
             IsDone = false;
             MaxLineWidth = 0;
             Position = position;
+            Text = text;
 
             startTime = 0.0;
             currentString = "";
             spedUp = false;
 
-            if (Font.MeasureString(text).Length() > width)
+            if (Font.MeasureString(Text).Length() > width)
             {
                 string line = string.Empty;
                 Text = string.Empty;

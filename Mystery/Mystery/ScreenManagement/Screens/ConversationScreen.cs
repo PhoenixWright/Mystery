@@ -37,6 +37,8 @@ namespace Mystery.ScreenManagement.Screens
 
             List<Dialogue> dialogue = new List<Dialogue>();
             dialogue.Add(new Dialogue("It actually fucking works a little bit. Thank you for the email.  Our 6 Month Unlimited Package is usually priced at $600 but i would be willing to decrease that to $550 for you since you will only be in town for half the year.  Let me know if this is something that you are still interested in. Have a great week and I hope to see you at the studio soon!"));
+            dialogue.Add(new Dialogue("Meh?"));
+            dialogue.Add(new Dialogue("Meh."));
             Conversation = new Conversation(Engine, dialogue);
 
             base.LoadContent();
