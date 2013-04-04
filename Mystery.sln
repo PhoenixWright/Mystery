@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mystery [Windows]", "Mystery\Mystery\Mystery [Windows].csproj", "{B5933A59-CB77-4E99-BEA0-E57841BF5195}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MysteryContent", "Mystery\MysteryContent\MysteryContent.contentproj", "{39BA9AFA-BA10-4AD0-84FB-5BF0EF26E105}"
@@ -39,6 +39,7 @@ Global
 		{B5933A59-CB77-4E99-BEA0-E57841BF5195}.Reference|x86.ActiveCfg = Release|x86
 		{B5933A59-CB77-4E99-BEA0-E57841BF5195}.Reference|x86.Build.0 = Release|x86
 		{B5933A59-CB77-4E99-BEA0-E57841BF5195}.Reference|Xbox 360.ActiveCfg = Release|x86
+		{B5933A59-CB77-4E99-BEA0-E57841BF5195}.Reference|Xbox 360.Build.0 = Release|x86
 		{B5933A59-CB77-4E99-BEA0-E57841BF5195}.Release|Any CPU.ActiveCfg = Release|x86
 		{B5933A59-CB77-4E99-BEA0-E57841BF5195}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{B5933A59-CB77-4E99-BEA0-E57841BF5195}.Release|Mixed Platforms.Build.0 = Release|x86

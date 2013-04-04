@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Mystery.Components.GameComponents.TextBased
 {
-    public class Dialogue
-    {
-        public string Text { get; private set; }
+  public class Dialogue
+  {
+    public string Text { get; private set; }
 
-        public Dialogue(string text)
-        {
-            Text = text;
-        }
+    public Dialogue(string text)
+    {
+      Text = text;
     }
+  }
 }

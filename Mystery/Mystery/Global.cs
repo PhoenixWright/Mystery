@@ -8,60 +8,60 @@ using Mystery.Components.EngineComponents;
 
 namespace Mystery
 {
-    public static class Global
+  public static class Global
+  {
+    public enum Animations
     {
-        public enum Animations
-        {
-            PlayOnce,
-            Repeat,
-        }
-
-        public enum CollisionCategories
-        {
-            Player = Category.Cat1,
-            PlayerBullet = Category.Cat2,
-            Enemy = Category.Cat3,
-            EnemyBullet = Category.Cat4,
-            Light = Category.Cat5,
-            Structure = Category.Cat6,
-        }
-
-        public enum Directions
-        {
-            Up,
-            Down,
-            Left,
-            Right,
-        }
-
-        public enum Layers
-        {
-            Background,
-            NPCs,
-            Player,
-            Projectiles,
-            Lighting,
-            AboveLighting,
-            TextBackground,
-            Text,
-        }
-
-        public enum Shapes
-        {
-            Circle,
-            Player,
-            Square,
-        }
-
-        public static Configuration Configuration { get; private set; }
-        public static Game Game { get; private set; }
-        public static GraphicsDeviceManager GraphicsDeviceManager { get; private set; }
-
-        public static void Initialize(Game game, GraphicsDeviceManager gdm)
-        {
-            Configuration = new Configuration();
-            Game = game;
-            GraphicsDeviceManager = gdm;
-        }
+      PlayOnce,
+      Repeat,
     }
+
+    public enum CollisionCategories
+    {
+      Player = Category.Cat1,
+      PlayerBullet = Category.Cat2,
+      Enemy = Category.Cat3,
+      EnemyBullet = Category.Cat4,
+      Light = Category.Cat5,
+      Structure = Category.Cat6,
+    }
+
+    public enum Directions
+    {
+      Up,
+      Down,
+      Left,
+      Right,
+    }
+
+    public enum Layers
+    {
+      Background,
+      NPCs,
+      Player,
+      Projectiles,
+      Lighting,
+      AboveLighting,
+      TextBackground,
+      Text,
+    }
+
+    public enum Shapes
+    {
+      Circle,
+      Player,
+      Square,
+    }
+
+    public static Configuration Configuration { get; private set; }
+    public static Game Game { get; private set; }
+    public static GraphicsDeviceManager GraphicsDeviceManager { get; private set; }
+
+    public static void Initialize(Game game, GraphicsDeviceManager gdm)
+    {
+      Configuration = new Configuration();
+      Game = game;
+      GraphicsDeviceManager = gdm;
+    }
+  }
 }

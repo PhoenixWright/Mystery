@@ -10,17 +10,17 @@ using Mystery.ScreenManagement;
 
 namespace Mystery.GameComponents.PhysicsComponents
 {
-    public class MovingPlatformPhysicsComponent : PhysicsComponent
+  public class MovingPlatformPhysicsComponent : PhysicsComponent
+  {
+    public List<Vector2> Positions { get; private set; }
+
+    public MovingPlatformPhysicsComponent(Engine engine, List<Vector2> gameWorldPositionList, float speed)
+      : base(engine)
     {
-        public List<Vector2> Positions { get; private set; }
-
-        public MovingPlatformPhysicsComponent(Engine engine, List<Vector2> gameWorldPositionList, float speed)
-            : base(engine)
-        {
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-        }
     }
+
+    public override void Update(GameTime gameTime)
+    {
+    }
+  }
 }
